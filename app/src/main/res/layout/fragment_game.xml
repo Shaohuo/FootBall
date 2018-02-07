@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yxl.football.ui.GameFragment">
+
+    <include layout="@layout/layout_title" />
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        tl:tl_iconVisible="false"
+        tl:tl_indicator_color="@color/green_6fb338"
+        tl:tl_indicator_width="60dp"
+        tl:tl_textBold="SELECT"
+        tl:tl_textSelectColor="@color/green_6fb338"
+        tl:tl_textUnselectColor="@android:color/black"
+        tl:tl_textsize="14sp" />
+
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp">
+
+        <ListView
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/white"
+            android:overScrollMode="never"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:scrollbars="none" />
+
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+</LinearLayout>
