@@ -10,51 +10,114 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="vs" />
+        android:text="vs"
+        android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvHomeTeam"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvMatchName"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvVs"
-        android:layout_marginRight="25dp"
-        android:layout_toLeftOf="@+id/tvVs"
-        android:text="德黑兰独立" />
-
-    <TextView
-        android:id="@+id/tvAwayTeam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvVs"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@+id/tvVs"
-        android:text="拉什特" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="伊朗超"
+        android:textColor="@color/green_6fb338" />
 
     <TextView
         android:id="@+id/tvMatchTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvHomeTeam"
-        android:layout_alignRight="@+id/tvHomeTeam"
-        android:layout_marginBottom="5dp"
+        android:layout_alignTop="@id/tvMatchName"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tvMatchName"
         android:text="20:30" />
 
     <TextView
-        android:id="@+id/tvMatchName"
+        android:id="@+id/tvHalfScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvMatchTime"
-        android:layout_alignBottom="@+id/tvMatchTime"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/tvMatchTime"
-        android:layout_toStartOf="@+id/tvMatchTime"
-        android:text="伊朗超"
-        android:textColor="@color/green_6fb338" />
+        android:layout_alignTop="@id/tvMatchTime"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tvMatchTime"
+        android:text="半场3-0" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_c1c1c1"
         android:layout_alignParentBottom="true"
-        />
+        android:background="@color/gray_c1c1c1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@id/tvMatchName"
+        android:layout_alignRight="@+id/tvMatchName"
+        android:layout_below="@+id/tvMatchName">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="未" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@id/tvMatchTime"
+        android:layout_below="@+id/tvMatchTime"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_c1c1c1" />
+
+        <TextView
+            android:id="@+id/tvHscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="5dp"
+            android:text="-"
+
+            />
+
+        <TextView
+            android:id="@+id/tvHomeTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvHscore"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/tvHscore"
+            android:text="德黑兰独立"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvAscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="14dp"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/tvAwayTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvAscore"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/tvAscore"
+            android:text="拉什特" />
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

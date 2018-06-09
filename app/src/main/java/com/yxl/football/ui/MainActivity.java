@@ -1,10 +1,15 @@
 package com.yxl.football.ui;
 
+import android.graphics.Color;
+import android.media.Image;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
@@ -16,6 +21,10 @@ import com.yxl.football.ui.GameFragment;
 import com.yxl.football.ui.HomeFragment;
 import com.yxl.football.ui.MyFragment;
 import com.yxl.football.ui.NewsFragment;
+import com.yxl.football.view.FixedIndicatorView;
+import com.yxl.football.view.IndicatorViewPager;
+import com.yxl.football.view.OnTransitionTextListener;
+import com.yxl.football.view.SViewPager;
 
 import java.util.ArrayList;
 
@@ -24,53 +33,66 @@ public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
     private LayoutInflater mInflater;
     private ArrayList<Tab> mTabs = new ArrayList<Tab>(5);
+    private FixedIndicatorView indicator;
+    private IndicatorViewPager indicatorViewPager;
+    private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initTab();
+
+        SViewPager viewPager = (SViewPager) findViewById(R.id.tabmain_viewPager);
+        indicator = (FixedIndicatorView) findViewById(R.id.tabmain_indicator);
+//        indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.RED,
+//                Color.GRAY));
+        indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
+        indicatorViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        // 禁止viewpager的滑动事件
+        viewPager.setCanScroll(false);
+        // 设置viewpager保留界面不重新加载的页面数量
+        viewPager.setOffscreenPageLimit(4);
+        mFragments.clear();
+        mFragments.add(new HomeFragment());
+        mFragments.add(new GameFragment());
+        mFragments.add(new NewsFragment());
+        mFragments.add(new MyFragment());
     }
 
-    private void initTab() {
-        //实例化5个Tab类的对象
-        Tab Tab_home = new Tab(R.drawable.tab_home, R.string.home, HomeFragment.class);
-        Tab Tab_score = new Tab(R.drawable.tab_score, R.string.score, GameFragment.class);
-        Tab Tab_news = new Tab(R.drawable.tab_news, R.string.news, NewsFragment.class);
-        Tab Tab_my = new Tab(R.drawable.tab_my, R.string.my, MyFragment.class);
 
-        //将这5个对象加到一个List中
-        mTabs.add(Tab_home);
-        mTabs.add(Tab_score);
-        mTabs.add(Tab_news);
-        mTabs.add(Tab_my);
+    private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
+        private String[] tabNames = {"首页", "比分", "资讯", "我的"};
+        private int[] tabIcons = {R.drawable.tab_home, R.drawable.tab_score, R.drawable.tab_news,
+                R.drawable.tab_my};
+        private LayoutInflater inflater;
 
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
-        mInflater = LayoutInflater.from(this);
-
-        //通过循环实例化一个个TabSpec
-        //并调用其中setIndicator方法
-        //然后将TabSpec加到TabHost中
-        for (Tab tab : mTabs) {
-            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(String.valueOf(tab.getText()));
-            tabSpec.setIndicator(buildView(tab));
-            mTabHost.addTab(tabSpec, tab.getFragment(), null);
+        public MyAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+            inflater = LayoutInflater.from(getApplicationContext());
         }
 
-        //通过这行代码可以去除掉底部菜单5个图表之间的分割线
-        mTabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
-    }
+        @Override
+        public int getCount() {
+            return tabNames.length;
+        }
 
-    //设置Indicator中的View
-    private View buildView(Tab tab) {
-        View view = mInflater.inflate(R.layout.tab_item, null);
-        ImageView Tab_img = (ImageView) view.findViewById(R.id.image);
-        TextView Tab_txt = (TextView) view.findViewById(R.id.title);
+        @Override
+        public View getViewForTab(int position, View convertView, ViewGroup container) {
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.tab_item, container, false);
+            }
+            TextView title = (TextView) convertView.findViewById(R.id.title);
+            ImageView image = (ImageView) convertView.findViewById(R.id.image);
+            title.setText(tabNames[position]);
+            image.setImageResource(tabIcons[position]);
+            return convertView;
+        }
 
-        Tab_img.setBackgroundResource(tab.getImage());
-        Tab_txt.setText(tab.getText());
-        return view;
+        @Override
+        public Fragment getFragmentForPage(int position) {
+
+            return mFragments.get(position);
+        }
     }
 
 }

@@ -5,22 +5,17 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/realcontent"
+    <com.yxl.football.view.SViewPager
+        android:id="@+id/tabmain_viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></FrameLayout>
+        android:layout_weight="1"
+        android:background="#eee" />
 
-    <android.support.v4.app.FragmentTabHost
-        android:id="@android:id/tabhost"
+    <com.yxl.football.view.FixedIndicatorView
+        android:id="@+id/tabmain_indicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
+        android:layout_height="50dp"
+        android:background="#fff"/>
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0"></FrameLayout>
-    </android.support.v4.app.FragmentTabHost>
 </LinearLayout>

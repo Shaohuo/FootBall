@@ -10,4 +10,6 @@ public class MatchResult {
     public String match_date;
     public String match_name;
     public String match_time;
+
+
 }
